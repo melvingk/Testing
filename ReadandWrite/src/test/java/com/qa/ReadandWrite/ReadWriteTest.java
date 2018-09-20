@@ -27,9 +27,7 @@ public class ReadWriteTest {
 	WebDriver driver= null;
 	ExtentTest test;
 	ExtentReports report = Constants.report; 
-	
-	
-	
+
 	@Before
 	public  void setup() {
 		
@@ -37,7 +35,7 @@ public class ReadWriteTest {
 		System.setProperty("webdriver.chrome.driver", 
 				"C:/Users/Admin/Desktop/testing exe/chromedriver.exe");	
 		driver = new ChromeDriver();	
-		test = report.startTest("The start of the Test");
+		;
 	}
 		
 	@Given("^I go to \"([^\"]*)\" website$")
@@ -45,7 +43,7 @@ public class ReadWriteTest {
 		
 		driver.get(arg1);
 		driver.manage().window().maximize();
-	 
+		test = report.startTest("The start of the Test");
 	}
 
 	@When("^I search for \"([^\"]*)\"$")
@@ -59,22 +57,27 @@ public class ReadWriteTest {
 	@Then("^I am taken to a list of data for that search$")
 	public void i_am_taken_to_a_list_of_data_for_that_search() 
 	{
-
-		assertTrue(!Constants.websiteURL.equals(driver.getCurrentUrl()));
-		if((!Constants.websiteURL.equals(driver.getCurrentUrl()))) {
+//
+//		assertTrue(!Constants.websiteURL.equals(driver.getCurrentUrl()));
+		if(!Constants.websiteURL.equals(driver.getCurrentUrl())) {
 			
 			  FileExcel.setCellData("Test case" + Constants.count, Constants.count, 0);
 			  FileExcel.setCellData("PASS", Constants.count++, 1);
+			  assertTrue(!Constants.websiteURL.equals(driver.getCurrentUrl()));
 			  test.log(LogStatus.PASS,"Successful search");
+			  System.out.println(driver.getCurrentUrl());
+			  
+			  
 		}
 		else {
 			
 			   FileExcel.setCellData("Test case" + Constants.count, Constants.count, 0);
 			   FileExcel.setCellData("FAIL", Constants.count++, 1);
 			   test.log(LogStatus.FAIL,"Unsuccessful shit");
-		}
+			   assertTrue(Constants.websiteURL.equals(driver.getCurrentUrl()));
+			   System.out.println(driver.getCurrentUrl());
+	}
 		
-	
 	}
 
 
@@ -84,7 +87,8 @@ public class ReadWriteTest {
 		Thread.sleep(1000);
 		driver.close();
 		driver.quit();
-//		report.endTest(test);
+		report.endTest(test);
+		report.flush();
 	}
 	
 	
