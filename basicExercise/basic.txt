@@ -57,3 +57,35 @@ public class basic {
 //		assertEquals("itisme",driver.findElement(By.xpath("/html/body/table/tbody/tr/td[1]/blockquote/blockquote[2]/blockquote")).getText());
 }
 }
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+code for a list of webelements
+	try {
+	WebElement hi = driver.findElement(By.xpath("//*[@id=\"df_con\"]/div[1]/ul"));
+	    List<WebElement> listofwebelements= hi.findElements(By.tagName("li"));
+	    if(listofwebelements.size()>1)
+	    {
+	    	Assert.assertEquals("one is true and zero is false" 1, 1);
+	    }
+	    else
+	    {
+	    	Assert.assertEquals("one is true and zero is false" 1,0);
+	    }
+	  
+	    System.out.println(listofwebelements.size());
+		}
+		catch (Exception e)
+		{
+			Assert.assertEquals(1,0);
+		}
+	}
+
+
+
+
+
+
+
